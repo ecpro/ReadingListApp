@@ -2,42 +2,138 @@
 <!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>My AngularJS App</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
-  <link rel="stylesheet" href="app.css">
-  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
-</head>
-<body>
-  <ul class="menu">
-    <li><a href="#!/view1">view1</a></li>
-    <li><a href="#!/view2">view2</a></li>
-  </ul>
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="myApp" class="no-js">
+<!--<![endif]-->
 
-  <!--[if lt IE 7]>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Reading List</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+    <link rel="stylesheet" href="app.css">
+    <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+
+<body>
+
+
+    <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
-  <div ng-view></div>
 
-  <div>Angular seed app: v<span app-version></span></div>
+    <header>
+        <div class="container">
+            <div class="row sub-header">
+                <div class="col-xs-12">
+                    <div class="well">
+                        <h3>READING LIST.<span class="lead"> Here you can add books to your list and review them.</span></h3>
 
-  <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
-  -->
-  <script src="bower_components/angular/angular.js"></script>
-  <script src="bower_components/angular-route/angular-route.js"></script>
-  <script src="app.js"></script>
-  <script src="view1/view1.js"></script>
-  <script src="view2/view2.js"></script>
-  <script src="components/version/version.js"></script>
-  <script src="components/version/version-directive.js"></script>
-  <script src="components/version/interpolate-filter.js"></script>
+                        <button type="button" class="btn btn-danger">Add book</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-sm-push-6 well">
+                    <p>form preview</p>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-sm-pull-6" id="reviewForm">
+
+                    <!---------------------------- Review Form ------------------------------>
+
+                    <form class="form-horizontal">
+
+                        <!---------------------------- title input ------------------------------>
+
+                        <div class="form-group">
+                            <label for="title" class="col-sm-2 control-label">Title :</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="title" placeholder="Book Title">
+                            </div>
+                        </div>
+
+                        <!------------------------------ ISBN input------------------------------>
+
+                        <div class="form-group">
+                            <label for="isbn" class="col-sm-2 control-label">ISBN : </label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="isbn" placeholder="ISBN-10">
+                            </div>
+                        </div>
+
+                        <!------------------------------ Review textarea ------------------------------>
+
+                        <div class="form-group">
+                            <label for="review" class="col-sm-2 control-label">Review : </label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" id="review" rows="6"></textarea>
+                            </div>
+                        </div>
+
+                        <!------------------------------  Select Ratings ------------------------------>
+
+                        <div class="form-group">
+                            <label for="rating" class="col-sm-2 control-label">Rating : </label>
+                            <div class="col-sm-9">
+                                <select class="form-control" id="rating">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!------------------------------ Genre Checkbox ------------------------------>
+
+                        <div class="form-group">
+                            <label for="" class="col-sm-2 control-label">Genre : </label>
+                            <div class="checkbox col-sm-9">
+                                <label class="checkbox-inline"><input type="checkbox" id="genre" value="option1">Sci-fi</label>
+                                <label class="checkbox-inline"><input type="checkbox" id="genre" value="option1">Romance</label>
+                                <label class="checkbox-inline"><input type="checkbox" id="genre" value="option1">Thriller</label>
+                                <label class="checkbox-inline"><input type="checkbox" id="genre" value="option1">Comedy</label>
+                                <label class="checkbox-inline"><input type="checkbox" id="genre" value="option1">Drama</label>
+                            </div>
+                        </div>
+
+                        <!------------------------------ Submit & Reset ------------------------------>
+
+                        <div class="form-group">
+                            <div class="col-sm-9 col-sm-push-2">
+                                <input type="submit" class="btn btn-default" value="Submit">
+                                <input type="reset" class="btn btn-default" value="Reset">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <hr/>
+
+        </div>
+    </header>
+    <section class="main">
+        <div class="row">
+            <div class="col-xs-12">
+
+            </div>
+        </div>
+    </section>
+
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="app.js"></script>
+    <script src="components/version/version.js"></script>
+    <script src="components/version/version-directive.js"></script>
+    <script src="components/version/interpolate-filter.js"></script>
 </body>
+
 </html>
