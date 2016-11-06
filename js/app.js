@@ -60,32 +60,32 @@ angular.module('reviewListApp', [])
 .controller('ReviewController', ['$scope', function ($scope) {
     $scope.reviews = [
         {
-            bookImage: 'nightlife-q-c-300-300-6',
-            author: 'someone',
-            bookTitle: 'someTitle',
+            bookImage: 'harry potter',
+            author: 'J K Rowling',
+            bookTitle: 'Harry Potter',
+            rating: 5,
+            genres: {
+                drama: true,
+                sci_fi: true,
+                romance: false,
+                thriller: true,
+                comedy: false
+            },
+            description: "The crown jewel of the Harry Potter series, 'Half-Blood Prince' is one of the finest novels I've read in my lifetime."
+            },
+        {
+            bookImage: 'angels and demons',
+            author: 'Dan Brown',
+            bookTitle: 'Angels and Demons',
             rating: 4,
             genres: {
                 drama: true,
-                sci_fi: false,
+                sci_fi: true,
                 romance: true,
-                thriller: false,
-                comedy: false
-            },
-            description: "When things happen - enjoy them. They're little gifts. A fan brush is a fantastic piece of equipment. Use it."
-            },
-        {
-            bookImage: 'food-q-c-300-300-5',
-            author: 'someone',
-            bookTitle: 'someTitle',
-            rating: 2,
-            genres: {
-                drama: false,
-                sci_fi: false,
-                romance: true,
-                thriller: false,
+                thriller: true,
                 comedy: true
             },
-            description: "When things happen - enjoy them. They're little gifts. A fan brush is a fantastic piece of equipment. Use it."
+            description: "This book is just awesome. The sharp twists and thrills along the story are incredible. Trust me, it's a damn page-turner."
             }
 
         ];
