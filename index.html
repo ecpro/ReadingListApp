@@ -37,7 +37,7 @@
                     <div class="navbar">
                         <h2 class="page-header">READING LIST.<small><span class="lead"> Here you can add books to your reading list and review them.</span></small></h2>
 
-                        <button type="button" class="btn btn-danger" data-target="#reviewForm" data-toggle="collapse">Add book</button>
+                        <button type="button" class="btn btn-danger" ng-init="val=true" data-target="#reviewForm" data-toggle="collapse" ng-click="val=(!val)">{{(val)?"Add Book": "Cancel"}}</button>
                     </div>
                 </div>
             </div>
