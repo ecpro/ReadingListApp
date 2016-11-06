@@ -3,7 +3,7 @@
 <!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html lang="en" ng-app="myApp" class="no-js">
+<html lang="en" ng-app="reviewListApp" class="no-js">
 <!--<![endif]-->
 
 <head>
@@ -21,29 +21,62 @@
     <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
-<body>
+<body ng-controller='ReviewController as ReviewCtrl'>
 
 
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
+<!---------------------------- Add book section ------------------------------>
 
-    <header>
+    <header ng-controller="FormController as formCtrl">
         <div class="container">
             <div class="row sub-header">
                 <div class="col-xs-12">
                     <div class="navbar">
                         <h2 class="page-header">READING LIST.<small><span class="lead"> Here you can add books to your reading list and review them.</span></small></h2>
 
-                        <button type="button" class="btn btn-danger">Add book</button>
+                        <button type="button" class="btn btn-danger" data-target="#reviewForm" data-toggle="collapse">Add book</button>
                     </div>
                 </div>
             </div>
-            <div class="row">
+
+            <!---------------------------- Form & form preview section ------------------------------>
+
+
+            <div class="row collapse" id="reviewForm">
                 <div class="col-xs-12 col-sm-6 col-sm-push-6">
                     <div class="well well-sm">
-                        <p>form preview</p>
+                        <div class="media">
+                            <div class="media-left media-middle">
+                                <a href="#">
+                                    <img src="img/food-q-c-300-300-5.jpg" class="img-responsive img-thumbnail media-object">
+                                </a>
+                            </div>
+                            <div class="media-body text-left">
+                                <h3 class="media-heading">
+                                    {{formData.bookTitle}}
+                                </h3>
+                                <p class="lead"><small>{{formData.author}}</small></p>
+                                <p>Rating : {{formData.rating}}</p>
+                                <ul class="list-inline">
+                                    <li ng-repeat="(genre, state) in review.genres" ng-show="state">
+                                        <span class="label" ng-class="{ 'sci-fi': genre === 'sci-fi',
+                                                            'drama': genre === 'drama',
+                                                            'romance': genre === 'romance',
+                                                            'thriller': genre === 'thriller',
+                                                            'comedy': genre === 'comedy' }">
+                                           {{genre}}</span>
+                                    </li>
+
+                                </ul>
+                                <blockquote class="quote">
+                                    <p>{{formData.description}}</p>
+                                </blockquote>
+
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -51,14 +84,14 @@
 
                     <!---------------------------- Review Form ------------------------------>
 
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" name="bookReviewForm" novalidate>
 
                         <!---------------------------- title input ------------------------------>
 
                         <div class="form-group">
                             <label for="title" class="col-sm-2 control-label">Title :</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="title" placeholder="Book Title">
+                                <input type="text" ng-model="formData.bookTitle" class="form-control" id="title" placeholder="Book Title">
                             </div>
                         </div>
 
@@ -67,7 +100,7 @@
                         <div class="form-group">
                             <label for="isbn" class="col-sm-2 control-label">ISBN : </label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="isbn" placeholder="ISBN-10">
+                                <input type="text" ng-model="formData.ISBN" class="form-control" id="isbn" placeholder="ISBN-10">
                             </div>
                         </div>
 
@@ -76,7 +109,7 @@
                         <div class="form-group">
                             <label for="author" class="col-sm-2 control-label">Author : </label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="author" placeholder="Name of the Author">
+                                <input type="text" ng-model="formData.author" class="form-control" id="author" placeholder="Name of the Author">
                             </div>
                         </div>
 
@@ -85,7 +118,7 @@
                         <div class="form-group">
                             <label for="review" class="col-sm-2 control-label">Review : </label>
                             <div class="col-sm-9">
-                                <textarea class="form-control" id="review" rows="6"></textarea>
+                                <textarea class="form-control" ng-model="formData.description" id="review" rows="6"></textarea>
                             </div>
                         </div>
 
@@ -94,7 +127,7 @@
                         <div class="form-group">
                             <label for="rating" class="col-sm-2 control-label">Rating : </label>
                             <div class="col-sm-9">
-                                <select class="form-control" id="rating">
+                                <select class="form-control" id="rating" ng-model="formData.rating">
                                     <option>1</option>
                                     <option>2</option>
                                     <option>3</option>
@@ -138,61 +171,52 @@
 
     <section class="main">
         <div class="container">
-            <div class="row text-center">
+            <div class="row">
                 <div class="col-xs-8 col-sm-offset-2">
                     <h3>Reviews</h3>
                     <hr/>
                 </div>
                 <div class="row">
                     <div class="col-xs-8 col-sm-offset-2">
-                        <div class="media">
+                        <div class="media" ng-repeat="review in reviews">
                             <div class="media-left media-middle">
                                 <a href="#">
-                                    <img src="img/nightlife-q-c-300-300-6.jpg" class="img-responsive img-thumbnail media-object">
+                                    <img ng-src="{{review.bookImage}}" class="img-responsive img-thumbnail media-object">
                                 </a>
                             </div>
                             <div class="media-body text-left">
                                 <h3 class="media-heading">
-                                    Book Title
+                                    {{review.bookTitle}}
                                 </h3>
-                                <p class=>Author Name</p>
-                                <p>Rating : </p>
-                                <p class="lead"><span class="label label-info">romance</span> <span class="label label-danger">drama</span</p>
-                                <blockquote>
-                                <p>When things happen - enjoy them. They're little gifts. A fan brush is a fantastic piece of equipment. Use it. Make friends with it. I'm gonna start with a little Alizarin crimson and a touch of Prussian blue There's not a thing in the world wrong with washing your brush. A little happy sunlight shining through there</p></blockquote>
+                                <p class="lead"><small>{{review.author}}</small></p>
+                                <p>Rating : {{review.rating}}</p>
+                                <ul class="list-inline">
+                                    <li ng-repeat="(genre, state) in review.genres" ng-show="state">
+                                        <span class="label" ng-class="{ 'sci-fi': genre === 'sci-fi',
+                                                            'drama': genre === 'drama',
+                                                            'romance': genre === 'romance',
+                                                            'thriller': genre === 'thriller',
+                                                            'comedy': genre === 'comedy' }">
+                                           {{genre}}</span>
+                                    </li>
 
-                            </div>
-                        </div>
-                        <div class="media">
-                            <div class="media-left media-middle">
-                                <a href="#">
-                                    <img src="img/food-q-c-300-300-5.jpg" class="img-responsive img-thumbnail media-object">
-                                </a>
-                            </div>
-                            <div class="media-body text-left">
-                                <h3 class="media-heading">
-                                    Book Title
-                                </h3>
-                                <p class=>Author Name</p>
-                                <p>Rating : </p>
-                                <p class="lead"><span class="label label-info">romance</span> <span class="label label-danger">drama</span</p>
-                                <blockquote>
-                                <p>When things happen - enjoy them. They're little gifts. A fan brush is a fantastic piece of equipment. Use it. Make friends with it. I'm gonna start with a little Alizarin crimson and a touch of Prussian blue There's not a thing in the world wrong with washing your brush. A little happy sunlight shining through there</p></blockquote>
+                                </ul>
+                                <blockquote class="quote">
+                                    <p>{{review.description}}</p>
+                                </blockquote>
 
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     </section>
 
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="app.js"></script>
-    <script src="components/version/version.js"></script>
-    <script src="components/version/version-directive.js"></script>
-    <script src="components/version/interpolate-filter.js"></script>
 </body>
 
 </html>
