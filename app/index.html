@@ -12,13 +12,13 @@
     <title>Reading List</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="app/bower_components/html5-boilerplate/dist/css/normalize.css">
+    <link rel="stylesheet" href="app/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Itim|Titillium+Web:300,400" rel="stylesheet">
-    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
-    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+    <link rel="stylesheet" href="app/bower_components/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="app/bower_components/html5-boilerapp/plate/dist/css/main.css">
     <link rel="stylesheet" href="app.css">
-    <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="app/bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
 <body ng-controller='ReviewController as ReviewCtrl'>
@@ -140,10 +140,10 @@
                             <label for="" class="col-sm-2 control-label">Genre : </label>
                             <div class="checkbox col-sm-9">
                                 <label class="checkbox-inline"><input ng-model="genresSelected.sci_fi" type="checkbox" id="genre" value="option1">Sci-fi</label>
-                                <label class="checkbox-inline"><input ng-model="genresSelected.romance" type="checkbox" id="genre" value="option1">Romance</label>
-                                <label class="checkbox-inline"><input ng-model="genresSelected.thriller" type="checkbox" id="genre" value="option1">Thriller</label>
-                                <label class="checkbox-inline"><input ng-model="genresSelected.comedy" type="checkbox" id="genre" value="option1">Comedy</label>
-                                <label class="checkbox-inline"><input ng-model="genresSelected.drama" type="checkbox" id="genre" value="option1">Drama</label>
+                                <label class="checkbox-inline"><input ng-model="genresSelected.romance" type="checkbox" id="genre" value="">Romance</label>
+                                <label class="checkbox-inline"><input ng-model="genresSelected.thriller" type="checkbox" id="genre" value="">Thriller</label>
+                                <label class="checkbox-inline"><input ng-model="genresSelected.comedy" type="checkbox" id="genre" value="">Comedy</label>
+                                <label class="checkbox-inline"><input ng-model="genresSelected.drama" type="checkbox" id="genre" value="">Drama</label>
                             </div>
                         </div>
 
@@ -208,10 +208,10 @@
         </div>
     </section>
 
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="app.js"></script>
+    <script src="app/bower_components/angular/angular.js"></script>
+    <script src="app/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="app/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="app/app.js"></script>
 </body>
 
 </html>
