@@ -28,7 +28,7 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
-<!---------------------------- Add book section ------------------------------>
+    <!---------------------------- Add book section ------------------------------>
 
     <header ng-controller="FormController as formCtrl">
         <div class="container">
@@ -47,11 +47,12 @@
 
             <div class="row collapse" id="reviewForm">
                 <div class="col-xs-12 col-sm-6 col-sm-push-6">
+                    <div class="lead text-center">Form Preview</div>
                     <div class="well well-sm">
                         <div class="media">
                             <div class="media-left media-middle">
                                 <a href="#">
-                                    <img src="img/food-q-c-300-300-5.jpg" class="img-responsive img-thumbnail media-object">
+                                    <img ng-src="img/{{formData.bookImage}}.jpg" class="img-responsive img-thumbnail media-object">
                                 </a>
                             </div>
                             <div class="media-body text-left">
@@ -59,10 +60,10 @@
                                     {{formData.bookTitle}}
                                 </h3>
                                 <p class="lead"><small>{{formData.author}}</small></p>
-                                <p>Rating : {{formData.rating}}</p>
+                                <p ng-show="formData.bookTitle">Rating : {{formData.rating}} / 5</p>
                                 <ul class="list-inline">
-                                    <li ng-repeat="(genre, state) in review.genres" ng-show="state">
-                                        <span class="label" ng-class="{ 'sci-fi': genre === 'sci-fi',
+                                    <li ng-repeat="(genre, state) in genresSelected" ng-show="state">
+                                        <span class="label" ng-class="{ 'sci-fi': genre === 'sci_fi',
                                                             'drama': genre === 'drama',
                                                             'romance': genre === 'romance',
                                                             'thriller': genre === 'thriller',
@@ -71,7 +72,7 @@
                                     </li>
 
                                 </ul>
-                                <blockquote class="quote">
+                                <blockquote class="quote" ng-show="formData.description">
                                     <p>{{formData.description}}</p>
                                 </blockquote>
 
@@ -84,7 +85,7 @@
 
                     <!---------------------------- Review Form ------------------------------>
 
-                    <form class="form-horizontal" name="bookReviewForm" novalidate>
+                    <form class="form-horizontal" name="bookReviewForm" novalidate ng-submit="submitForm()">
 
                         <!---------------------------- title input ------------------------------>
 
@@ -100,7 +101,7 @@
                         <div class="form-group">
                             <label for="isbn" class="col-sm-2 control-label">ISBN : </label>
                             <div class="col-sm-9">
-                                <input type="text" ng-model="formData.ISBN" class="form-control" id="isbn" placeholder="ISBN-10">
+                                <input type="text" ng-model="formData.bookImage" class="form-control" id="isbn" placeholder="ISBN-10">
                             </div>
                         </div>
 
@@ -128,11 +129,7 @@
                             <label for="rating" class="col-sm-2 control-label">Rating : </label>
                             <div class="col-sm-9">
                                 <select class="form-control" id="rating" ng-model="formData.rating">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
+                                    <option ng-repeat="rating in ratings track by $index">{{rating}}</option>
                                 </select>
                             </div>
                         </div>
@@ -142,11 +139,11 @@
                         <div class="form-group">
                             <label for="" class="col-sm-2 control-label">Genre : </label>
                             <div class="checkbox col-sm-9">
-                                <label class="checkbox-inline"><input type="checkbox" id="genre" value="option1">Sci-fi</label>
-                                <label class="checkbox-inline"><input type="checkbox" id="genre" value="option1">Romance</label>
-                                <label class="checkbox-inline"><input type="checkbox" id="genre" value="option1">Thriller</label>
-                                <label class="checkbox-inline"><input type="checkbox" id="genre" value="option1">Comedy</label>
-                                <label class="checkbox-inline"><input type="checkbox" id="genre" value="option1">Drama</label>
+                                <label class="checkbox-inline"><input ng-model="genresSelected.sci_fi" type="checkbox" id="genre" value="option1">Sci-fi</label>
+                                <label class="checkbox-inline"><input ng-model="genresSelected.romance" type="checkbox" id="genre" value="option1">Romance</label>
+                                <label class="checkbox-inline"><input ng-model="genresSelected.thriller" type="checkbox" id="genre" value="option1">Thriller</label>
+                                <label class="checkbox-inline"><input ng-model="genresSelected.comedy" type="checkbox" id="genre" value="option1">Comedy</label>
+                                <label class="checkbox-inline"><input ng-model="genresSelected.drama" type="checkbox" id="genre" value="option1">Drama</label>
                             </div>
                         </div>
 
@@ -161,9 +158,6 @@
                     </form>
                 </div>
             </div>
-            <hr/>
-            <hr/>
-
         </div>
     </header>
 
@@ -172,39 +166,40 @@
     <section class="main">
         <div class="container">
             <div class="row">
-                <div class="col-xs-8 col-sm-offset-2">
-                    <h3>Reviews</h3>
-                    <hr/>
+                <div class="col-xs-8 col-sm-offset-2 text-center">
+                    <h3 class="page-header">Reviews</h3>
                 </div>
                 <div class="row">
                     <div class="col-xs-8 col-sm-offset-2">
-                        <div class="media" ng-repeat="review in reviews">
-                            <div class="media-left media-middle">
-                                <a href="#">
-                                    <img ng-src="{{review.bookImage}}" class="img-responsive img-thumbnail media-object">
-                                </a>
-                            </div>
-                            <div class="media-body text-left">
-                                <h3 class="media-heading">
-                                    {{review.bookTitle}}
-                                </h3>
-                                <p class="lead"><small>{{review.author}}</small></p>
-                                <p>Rating : {{review.rating}}</p>
-                                <ul class="list-inline">
-                                    <li ng-repeat="(genre, state) in review.genres" ng-show="state">
-                                        <span class="label" ng-class="{ 'sci-fi': genre === 'sci-fi',
+                        <div class="well well-sm">
+                            <div class="media" ng-repeat="review in reviews">
+                                <div class="media-left media-middle">
+                                    <a href="#">
+                                        <img ng-src="img/{{review.bookImage}}.jpg" class="img-responsive img-thumbnail media-object">
+                                    </a>
+                                </div>
+                                <div class="media-body text-left">
+                                    <h3 class="media-heading">
+                                        {{review.bookTitle}}
+                                    </h3>
+                                    <p class="lead"><small>{{review.author}}</small></p>
+                                    <p>Rating : {{review.rating}} / 5</p>
+                                    <ul class="list-inline">
+                                        <li ng-repeat="(genre, state) in review.genres" ng-show="state">
+                                            <span class="label" ng-class="{ 'sci-fi': genre === 'sci_fi',
                                                             'drama': genre === 'drama',
                                                             'romance': genre === 'romance',
                                                             'thriller': genre === 'thriller',
                                                             'comedy': genre === 'comedy' }">
                                            {{genre}}</span>
-                                    </li>
+                                        </li>
 
-                                </ul>
-                                <blockquote class="quote">
-                                    <p>{{review.description}}</p>
-                                </blockquote>
+                                    </ul>
+                                    <blockquote class="quote">
+                                        <p>{{review.description}}</p>
+                                    </blockquote>
 
+                                </div>
                             </div>
                         </div>
                     </div>

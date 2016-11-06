@@ -45,3 +45,7 @@ body {
 .quote:after {
 	content: close-quote;
 }
+
+.img-thumbnail {
+    width: 200px;
+}

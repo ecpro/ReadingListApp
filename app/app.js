@@ -3,40 +3,89 @@
 angular.module('reviewListApp', [])
 
 .controller('FormController', ['$scope', function ($scope) {
-    $scope.formData = {};
 
-    }])
+    $scope.ratings = [1, 2, 3, 4, 5];
+    $scope.selected = 5;
 
+
+    $scope.genresSelected = {
+        drama: false,
+        sci_fi: false,
+        romance: false,
+        thriller: false,
+        comedy: false
+    }
+
+    $scope.formData = {
+        author: '',
+        bookTitle: '',
+        genres: {},
+        bookImage: 'food-q-c-300-300-5',
+        rating: $scope.selected,
+        description: ""
+    };
+
+
+    $scope.submitForm = function () {
+        $scope.formData.genres = $scope.genresSelected;
+
+        console.log($scope.genresSelected);
+        $scope.reviews.unshift($scope.formData);
+
+        $scope.genresSelected = {
+            drama: false,
+            sci_fi: false,
+            romance: false,
+            thriller: false,
+            comedy: false
+        };
+
+        $scope.formData = {
+            author: '',
+            bookTitle: '',
+            genres: {},
+            bookImage: 'food-q-c-300-300-5',
+            rating: $scope.selected,
+            description: ""
+        };
+
+
+        console.log("form submittted");
+        console.log($scope.formData);
+        console.log($scope.genresSelected);
+    };
+
+}])
 
 .controller('ReviewController', ['$scope', function ($scope) {
     $scope.reviews = [
         {
-            bookImage: 'img/nightlife-q-c-300-300-6.jpg',
+            bookImage: 'nightlife-q-c-300-300-6',
             author: 'someone',
             bookTitle: 'someTitle',
             rating: 4,
             genres: {
-                'drama': true,
-                'sci-fi': false,
-                'romance': true,
-                'thriller': false,
-                'comedy': false
+                drama: true,
+                sci_fi: false,
+                romance: true,
+                thriller: false,
+                comedy: false
             },
-            description: "When things happen - enjoy them. They're little gifts. A fan brush is a fantastic            piece of equipment. Use it. Make friends with it. I'm gonna start with a little              Alizarin crimson and a touch of Prussian blue There's not a thing in the world              wrong with washing your brush. A little happy sunlight shining through there"
+            description: "When things happen - enjoy them. They're little gifts. A fan brush is a fantastic piece of equipment. Use it."
             },
         {
-            bookImage: 'img/food-q-c-300-300-5.jpg',
+            bookImage: 'food-q-c-300-300-5',
             author: 'someone',
             bookTitle: 'someTitle',
             rating: 2,
             genres: {
-                'drama': false,
-                'sci-fi': true,
-                'romance': true,
-                'thriller': true,
-                'comedy': false
+                drama: false,
+                sci_fi: false,
+                romance: true,
+                thriller: false,
+                comedy: true
             },
-            description: "When things happen - enjoy them. They're little gifts. A fan brush is a fantastic piece of equipment. Use it. Make friends with it. I'm gonna start with a little Alizarin crimson and a touch of Prussian blue There's not a thing in the world wrong with washing your brush. A little happy sunlight shining through there"
+            description: "When things happen - enjoy them. They're little gifts. A fan brush is a fantastic piece of equipment. Use it."
             }
 
         ];
